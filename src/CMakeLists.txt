@@ -9,6 +9,7 @@ target_sources(app PRIVATE
     flash.cpp
     main.cpp
     power.cpp
+    system.cpp
 )
 
 target_include_directories(app PRIVATE

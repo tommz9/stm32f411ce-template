@@ -4,8 +4,10 @@
 
 #include "clock.hpp"
 #include "flash.hpp"
+#include "system.hpp"
 
 void configureSystem() {
+  system::enableExtraExceptions();
   clock::enableCrystalClock();
   flash::enableAllCaches();
   clock::configureSysTick();
