@@ -18,6 +18,7 @@ set(arch_flags
     -mfpu=fpv4-sp-d16
     -mfloat-abi=hard
     -mthumb
+    -mabi=aapcs
 )
 
 # Compiler and Linker options
