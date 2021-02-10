@@ -2,6 +2,19 @@
 
 This is a simple project template for STM32F411CE (Blackpill).
 
+## Features
+
+Implemented:
+
+- build a binary file for STM32F411
+- works under Linux and Windows
+- uses ARM GNU toolchain
+
+Planned:
+
+- build using clang (LLVM)
+- support for unit testing under the host
+
 # Usage
 
 Requirements: cmake, make, ARM Toolchain (from ARM or your distribution package system)
@@ -51,6 +64,10 @@ Another useful options options are `make clean` to remove build artifacts, `make
 Create a new `.c` or `.cpp` file and add it to the `CMakeLists.txt` in the folder with the source, ie `src/CMakeLists.txt`.
 
 If a new root level folder is needed, create the folder and then copy the `src/CMakeLists.txt` file into the new folder. Modify the file to include sources files in the new folder and give the target a unique name (ie. rename `app` to something else). Then modify the root `CMakeLists.txt` to `add_subdirectory("new_folder")` and also add the new target to `target_link_libraries`.
+
+# Alternatives
+
+- https://github.com/ObKo/stm32-cmake an excellent project that provides CMake targets for the entire lineup of STM32 Arm Cortex MCUs. This works well and is easy to use, however it is a complex project with many features therefore I decided to create something simpler. 
 
 # Credit
 
