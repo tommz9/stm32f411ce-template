@@ -1,0 +1,12 @@
+TM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
+STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f411xe.s
+
+STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h
+STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
+
+STM32CubeF4/Drivers/CMSIS/Core/Include/core_cm4.h
+STM32CubeF4/Drivers/CMSIS/Core/Include/cmsis_version.h
+STM32CubeF4/Drivers/CMSIS/Core/Include/cmsis_compiler.h
+STM32CubeF4/Drivers/CMSIS/Core/Include/mpu_armv7.h
+STM32CubeF4/Drivers/CMSIS/Core/Include/cmsis_gcc.h
