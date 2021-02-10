@@ -72,3 +72,5 @@ If a new root level folder is needed, create the folder and then copy the `src/C
 # Credit
 
 This project contains several files from ST Micro, the vendor of he MCU. The files are in the folder `vendor`.
+
+There is also a hard fault handler from SEGGER https://wiki.segger.com/Cortex-M_Fault
