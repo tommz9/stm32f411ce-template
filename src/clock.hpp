@@ -8,7 +8,7 @@ namespace clock {
 // Frequency of System Timer
 const unsigned int sysTickFreq = 1000;
 
-// Frequemcy of the crystal
+// Frequency of the crystal
 const unsigned int installedCrystalFreq = 16'000'000;
 
 // Switches the clock source to the crystal

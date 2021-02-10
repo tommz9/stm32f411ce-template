@@ -5,14 +5,14 @@
 #include "clock.hpp"
 #include "flash.hpp"
 
-void configureSysem() {
+void configureSystem() {
   clock::enableCrystalClock();
   flash::enableAllCaches();
   clock::configureSysTick();
 }
 
 int main(void) {
-  configureSysem();
+  configureSystem();
 
   while (1) {
     clock::delayMs(1000);
