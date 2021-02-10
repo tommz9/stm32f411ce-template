@@ -60,6 +60,7 @@ set(link_flags
     -flto
     -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
     -Wl,--print-memory-usage
+    -Xlinker -Map=output.map 
 )
 
 # Add folder-wise  options, will be passed to added subdirectories
