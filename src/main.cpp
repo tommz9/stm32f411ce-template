@@ -4,6 +4,7 @@
 
 #include "clock.hpp"
 #include "flash.hpp"
+#include "gpio.hpp"
 #include "system.hpp"
 
 void configureSystem() {
@@ -16,8 +17,16 @@ void configureSystem() {
 int main(void) {
   configureSystem();
 
+  gpio::Port portA(gpio::Gpio::C);
+
+  auto ledPin = portA.allocatePin(13);
+  ledPin.setMode(gpio::PinMode::Output);
+
   while (1) {
-    clock::delayMs(1000);
+    ledPin.high();
+    clock::delayMs(500);
+    ledPin.low();
+    clock::delayMs(500);
   }
   return 0;
 }
