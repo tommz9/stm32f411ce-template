@@ -4,8 +4,8 @@
 
 #include "clock.hpp"
 #include "flash.hpp"
-#include "system.hpp"
 #include "gpio.hpp"
+#include "system.hpp"
 
 void configureSystem() {
   system::enableExtraExceptions();
@@ -17,9 +17,9 @@ void configureSystem() {
 int main(void) {
   configureSystem();
 
-  gpio::GpioPort portA(gpio::Gpio::A);
+  gpio::Port portA(gpio::Gpio::C);
 
-  auto ledPin = portA.allocatePin(12);
+  auto ledPin = portA.allocatePin(13);
   ledPin.setMode(gpio::PinMode::Output);
 
   while (1) {

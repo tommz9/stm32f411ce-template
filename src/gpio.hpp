@@ -9,33 +9,40 @@ struct GPIO_Struct;
 
 namespace gpio {
 
-class GpioPort;
-class GpioPin;
+class Port;
+class Pin;
 
 enum class Gpio { A, B, C, D, E, H };
 
 enum class PinMode { Input, Output };
 
-class GpioPort {
+class Port {
+  friend class Pin;
+
 private:
   GPIO_Struct &m_gpio;
   unsigned int m_allocationTable = 0;
 
-public:
-  GpioPort(Gpio gpio);
+  void returnPin(const Pin &pin);
 
-  GpioPin allocatePin(unsigned int pin);
-  void returnPin(GpioPin pin);
+public:
+  Port(Gpio gpio);
+
+  Pin allocatePin(unsigned int pin);
 };
 
-class GpioPin {
+class Pin {
+  friend class Port;
+
 private:
-  GpioPort &m_port;
+  Port &m_port;
   unsigned int m_pin;
 
+  Pin(Port &port, unsigned int pin);
+  Pin(const Pin &) = delete;
+
 public:
-  GpioPin(GpioPort &port, unsigned int pin);
-  ~GpioPin();
+  ~Pin();
 
   void setMode(PinMode mode);
 

@@ -46,38 +46,49 @@ static constexpr clock::PeripheralClock peripheralClockForGpio(Gpio gpio) {
 }
 #pragma GCC diagnostic pop
 
-gpio::GpioPort::GpioPort(Gpio gpio) : m_gpio(selectGpio(gpio)) {
+gpio::Port::Port(Gpio gpio) : m_gpio(selectGpio(gpio)) {
   clock::enablePeripheralClock(peripheralClockForGpio(gpio));
 }
 
-GpioPin gpio::GpioPort::allocatePin(unsigned int pin) {
+Pin gpio::Port::allocatePin(unsigned int pin) {
   // TODO: Error checking
+  // TODO: Locking
 
   this->m_allocationTable |= 1U << pin;
-  return GpioPin(*this, pin);
+  return Pin(*this, pin);
 }
 
-gpio::GpioPin::GpioPin(GpioPort &port, unsigned int pin):
-    m_port(port), m_pin(pin)
-{
+void gpio::Port::returnPin(const Pin &pin) {
+  this->m_allocationTable &= ~(1U << pin.m_pin);
 }
 
+gpio::Pin::Pin(Port &port, unsigned int pin) : m_port(port), m_pin(pin) {}
 
-gpio::GpioPin::~GpioPin(){
-    this->m_port.returnPin(*this);
+gpio::Pin::~Pin() { this->m_port.returnPin(*this); }
+
+void gpio::Pin::setMode(PinMode mode) {
+
+  uint32_t shift = this->m_pin * 2;
+
+  this->m_port.m_gpio.MODER &= ~(0x03U << shift);
+
+  if (mode == PinMode::Output) {
+    this->m_port.m_gpio.MODER |= 0x01U << (shift);
+  }
 }
 
-// void gpio::GpioPin::setMode(PinMode mode){
+void gpio::Pin::high() { this->m_port.m_gpio.BSRR = (1U << this->m_pin); }
 
-// }
+void gpio::Pin::low() { this->m_port.m_gpio.BSRR = (1U << (this->m_pin + 16)); }
 
-void gpio::GpioPin::high(){
-    this->write(true);
+void gpio::Pin::toggle() { this->write(!this->read()); }
+
+void gpio::Pin::write(bool value) {
+  if (value) {
+    this->high();
+  } else {
+    this->low();
+  }
 }
-void gpio::GpioPin::low(){
-    this->write(false);
-}
-//void gpio::GpioPin::toggle();
 
-//void gpio::GpioPin::write(bool value);
-//bool gpio::GpioPin::read();
+bool gpio::Pin::read() { return this->m_port.m_gpio.IDR & (1U << this->m_pin); }
