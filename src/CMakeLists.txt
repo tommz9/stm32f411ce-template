@@ -5,7 +5,8 @@
 add_library(app OBJECT)
 
 target_sources(app PRIVATE
-    clock.cpp 
+    clock.cpp
+    gpio.cpp 
     flash.cpp
     main.cpp
     power.cpp

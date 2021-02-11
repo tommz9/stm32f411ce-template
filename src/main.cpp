@@ -5,6 +5,7 @@
 #include "clock.hpp"
 #include "flash.hpp"
 #include "system.hpp"
+#include "gpio.hpp"
 
 void configureSystem() {
   system::enableExtraExceptions();
@@ -16,8 +17,16 @@ void configureSystem() {
 int main(void) {
   configureSystem();
 
+  gpio::GpioPort portA(gpio::Gpio::A);
+
+  auto ledPin = portA.allocatePin(12);
+  ledPin.setMode(gpio::PinMode::Output);
+
   while (1) {
-    clock::delayMs(1000);
+    ledPin.high();
+    clock::delayMs(500);
+    ledPin.low();
+    clock::delayMs(500);
   }
   return 0;
 }

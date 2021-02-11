@@ -56,6 +56,9 @@ void clock::enableCrystalClock() {
   // Set Wait states for flash access (Table 5 datasheet)
   flash::setWaitStates(3);
 
+  // Clock down the APB low speed bus (should be 50 MHz)
+  RCC->CFGR |= RCC_CFGR_PPRE1_DIV2;
+
   // Use PLL as the system clock
   RCC->CFGR |= RCC_CFGR_SW_PLL;
 
@@ -79,4 +82,52 @@ void clock::delayMs(int ms) {
   }
 
   // TODO: Maybe deal with overflow?
+}
+
+void clock::enablePeripheralClock(PeripheralClock clock) {
+  // TODO: Should be locked
+  switch (clock) {
+  case PeripheralClock::GpioA:
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+    break;
+  case PeripheralClock::GpioB:
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+    break;
+  case PeripheralClock::GpioC:
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+    break;
+  case PeripheralClock::GpioD:
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
+    break;
+  case PeripheralClock::GpioE:
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;
+    break;
+  case PeripheralClock::GpioH:
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOHEN;
+    break;
+  }
+}
+
+void clock::disablePeripheralClock(PeripheralClock clock) {
+  // TODO: Should be locked
+  switch (clock) {
+  case PeripheralClock::GpioA:
+    RCC->AHB1ENR &= ~RCC_AHB1ENR_GPIOAEN;
+    break;
+  case PeripheralClock::GpioB:
+    RCC->AHB1ENR &= ~RCC_AHB1ENR_GPIOBEN;
+    break;
+  case PeripheralClock::GpioC:
+    RCC->AHB1ENR &= ~RCC_AHB1ENR_GPIOCEN;
+    break;
+  case PeripheralClock::GpioD:
+    RCC->AHB1ENR &= ~RCC_AHB1ENR_GPIODEN;
+    break;
+  case PeripheralClock::GpioE:
+    RCC->AHB1ENR &= ~RCC_AHB1ENR_GPIOEEN;
+    break;
+  case PeripheralClock::GpioH:
+    RCC->AHB1ENR &= ~RCC_AHB1ENR_GPIOHEN;
+    break;
+  }
 }

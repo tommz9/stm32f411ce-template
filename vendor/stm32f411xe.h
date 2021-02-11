@@ -263,7 +263,7 @@ typedef struct
   * @brief General Purpose I/O
   */
 
-typedef struct
+typedef struct GPIO_Struct
 {
   __IO uint32_t MODER;    /*!< GPIO port mode register,               Address offset: 0x00      */
   __IO uint32_t OTYPER;   /*!< GPIO port output type register,        Address offset: 0x04      */
